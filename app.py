@@ -9,7 +9,9 @@ from flask import (
     Flask, render_template, request, redirect,
     url_for, session, flash, g, abort
 )
+app = Flask(__name__)
 
+app.config["SECRET_KEY"] = "change-this-to-a-long-random-secret"
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash
