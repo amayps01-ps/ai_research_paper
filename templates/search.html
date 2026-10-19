@@ -1,173 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    if request.method == "POST":
+        query = request.form.get("query", "").strip()
 
-    <title>Research Paper Recommendations</title>
+        if not query:
+            flash("Please enter a research topic.")
+            return render_template("search.html", papers=[])
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f5fa;
-            margin: 0;
-            padding: 20px;
-            color: #222;
-        }
+        try:
+            papers = recommend_papers(query)
 
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-        }
+            # Ensure each paper has a usable arXiv link.
+            for paper in papers:
+                if isinstance(paper, dict):
+                    paper_id = paper.get("id") or paper.get("arxiv_id")
 
-        h1 {
-            color: #173b70;
-            text-align: center;
-        }
+                    if paper_id:
+                        paper["url"] = (
+                            "https://arxiv.org/abs/"
+                            + str(paper_id).replace("https://arxiv.org/abs/", "")
+                        )
 
-        .search-box {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+            return render_template(
+                "search.html",
+                papers=papers,
+                query=query
+            )
 
-        input[type="text"] {
-            width: 95%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
+        except Exception as e:
+            app.logger.exception("Research paper search failed")
+            flash("Unable to find papers. Please try again.")
+            return render_template(
+                "search.html",
+                papers=[],
+                query=query
+            ), 500
 
-        button {
-            background: #1769aa;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .paper {
-            background: white;
-            padding: 18px;
-            margin: 15px 0;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px #ddd;
-        }
-
-        .paper a {
-            color: #1769aa;
-            font-size: 19px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .paper a:hover {
-            text-decoration: underline;
-        }
-
-        .abstract {
-            line-height: 1.6;
-            color: #444;
-        }
-
-        .open-button {
-            display: inline-block;
-            background: #16834a;
-            color: white !important;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-size: 14px !important;
-            margin-top: 10px;
-        }
-
-        .back {
-            display: inline-block;
-            margin-top: 20px;
-            color: #1769aa;
-        }
-    </style>
-</head>
-
-<body>
-<div class="container">
-
-    <h1>AI Research Paper Recommendation System</h1>
-
-    <div class="search-box">
-        <form action="{{ url_for('search') }}" method="POST">
-            <input type="hidden" name="csrf_token"
-                   value="{{ csrf_token }}">
-
-            <label for="query">
-                Enter a research topic:
-            </label>
-
-            <input
-                type="text"
-                id="query"
-                name="query"
-                placeholder="Example: Artificial Intelligence"
-                required
-            >
-
-            <button type="submit">Find Research Papers</button>
-        </form>
-    </div>
-
-    {% if papers %}
-        <h2>Recommended Research Papers</h2>
-
-        {% for paper in papers %}
-            <div class="paper">
-
-                <h3>
-                    {{ paper.title }}
-                </h3>
-
-                <p>
-                    <strong>Authors:</strong>
-                    {{ paper.authors | default('Not available', true) }}
-                </p>
-
-                <p class="abstract">
-                    <strong>Abstract:</strong>
-                    {{ paper.abstract | default('No abstract available.', true) }}
-                </p>
-
-                {% if paper.url %}
-                    <a
-                        class="open-button"
-                        href="{{ paper.url }}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Open Research Paper
-                    </a>
-                {% elif paper.id %}
-                    <a
-                        class="open-button"
-                        href="https://arxiv.org/abs/{{ paper.id }}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Open Research Paper
-                    </a>
-                {% else %}
-                    <p>Paper link is not available.</p>
-                {% endif %}
-
-            </div>
-        {% endfor %}
-
-    {% endif %}
-
-    <a class="back" href="{{ url_for('dashboard') }}">
-        ← Back to Dashboard
-    </a>
-
-</div>
-</body>
-</html>
+    return render_template("search.html", papers=[])
