@@ -1,4 +1,5 @@
-import os
+@app.route("/search", methods=["GET", "POST"])
+def search():import os
 import re
 import hmac
 import secrets
