@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Search Papers | AI Research{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+
+    <h1>Find Research Papers 🔍</h1>
+
+    <p>
+        Enter a research topic to discover relevant papers
+        using TF-IDF and cosine similarity.
+    </p>
+
+</section>
+
+<form method="POST"
+      action="{{ url_for('search') }}"
+      class="search-form">
+
+    <input type="hidden"
+           name="csrf_token"
+           value="{{ csrf_token }}">
+
+    <input type="text"
+           name="query"
+           placeholder="Example: Artificial Intelligence in Agriculture"
+           value="{{ query }}"
+           maxlength="500"
+           required>
+
+    <button type="submit" class="btn btn-primary">
+        Recommend Papers
+    </button>
+
+</form>
+
+{% if results %}
+
+    <h2>Recommended Papers</h2>
+    <br>
+
+    {% for paper in results %}
+
+        <div class="paper-card">
+
+            <h3>{{ paper.title }}</h3>
+
+            <p class="paper-meta">
+                Authors: {{ paper.authors }} |
+                Year: {{ paper.year }}
+            </p>
+
+            <p>{{ paper.abstract }}</p>
+
+            <span class="score">
+                Relevance: {{ paper.score }}%
+            </span>
+
+            <div class="paper-actions">
+
+                <a href="{{ paper.url }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="paper-link">
+                    Visit Research Website
+                </a>
+
+                <form action="{{ url_for('save_paper', paper_id=paper.id) }}"
+                      method="POST">
+
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token }}">
+
+                    <button type="submit" class="small-button">
+                        ⭐ Save Paper
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+{% elif query %}
+
+    <div class="empty-state">
+        <h3>No matching papers found</h3>
+        <p>Try a different research topic.</p>
+    </div>
+
+{% else %}
+
+    <div class="empty-state">
+        <h3>Start your research</h3>
+        <p>Enter a topic above to receive recommendations.</p>
+    </div>
+
+{% endif %}
+
+{% endblock %}

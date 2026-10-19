@@ -1,0 +1,405 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fc;
+    color: #172033;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #3659d9;
+}
+
+.navbar {
+    min-height: 75px;
+    padding: 16px 7%;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+.brand {
+    color: #2447bd;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.navbar nav a {
+    color: #28334a;
+    font-weight: 600;
+}
+
+.navbar nav a:hover {
+    color: #3659d9;
+}
+
+.nav-register {
+    background: #3659d9;
+    color: white !important;
+    padding: 9px 17px;
+    border-radius: 8px;
+}
+
+.logout-form {
+    display: inline;
+}
+
+.logout-button {
+    background: #fff0f0;
+    color: #c62828;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 14px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.main-container {
+    min-height: 75vh;
+    padding: 35px 7%;
+}
+
+.hero {
+    min-height: 430px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    align-items: center;
+    gap: 45px;
+    padding: 45px 0;
+}
+
+.badge {
+    display: inline-block;
+    background: #e5eaff;
+    color: #2447bd;
+    padding: 8px 14px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 54px);
+    line-height: 1.2;
+    margin: 20px 0;
+}
+
+.hero h1 span {
+    display: block;
+    color: #3659d9;
+}
+
+.hero-content > p {
+    max-width: 560px;
+    color: #68738a;
+    font-size: 17px;
+    margin-bottom: 28px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: 9px;
+    padding: 13px 23px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #3659d9;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2447bd;
+}
+
+.btn-secondary {
+    background: white;
+    color: #3659d9;
+    border: 1px solid #3659d9;
+}
+
+.hero-card,
+.feature-box,
+.auth-card,
+.paper-card,
+.dashboard-card {
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 8px 30px rgba(20, 40, 90, 0.07);
+}
+
+.hero-card {
+    border: 1px solid #e4e9ff;
+}
+
+.research-icon,
+.auth-icon {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hero-card h2 {
+    margin-bottom: 5px;
+}
+
+.hero-card > p {
+    color: #68738a;
+    margin-bottom: 22px;
+}
+
+.feature-item {
+    background: #f3f6ff;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.features {
+    padding: 35px 0;
+}
+
+.features > h2 {
+    text-align: center;
+    margin-bottom: 28px;
+    font-size: 30px;
+}
+
+.feature-grid,
+.dashboard-grid,
+.paper-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.feature-box h3 {
+    margin-bottom: 10px;
+}
+
+.feature-box p,
+.paper-card p {
+    color: #68738a;
+}
+
+.auth-container {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+}
+
+.auth-card h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.auth-description {
+    color: #68738a;
+    margin-bottom: 25px;
+}
+
+.auth-card form label {
+    display: block;
+    margin: 15px 0 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.auth-card input,
+.search-form input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d8deeb;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+}
+
+.auth-card input:focus,
+.search-form input:focus {
+    border-color: #3659d9;
+    box-shadow: 0 0 0 3px #e5eaff;
+}
+
+.auth-button {
+    width: 100%;
+    margin-top: 22px;
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 14px;
+}
+
+.auth-switch a {
+    font-weight: bold;
+}
+
+.messages {
+    margin-bottom: 20px;
+}
+
+.messages p {
+    background: #e5f7e9;
+    color: #176b32;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.page-heading {
+    margin-bottom: 25px;
+}
+
+.page-heading p {
+    color: #68738a;
+}
+
+.dashboard-card h3 {
+    margin-bottom: 10px;
+}
+
+.dashboard-card .number {
+    color: #3659d9;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.search-form {
+    display: flex;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.search-form input {
+    flex: 1;
+}
+
+.paper-card {
+    margin-bottom: 20px;
+    overflow-wrap: anywhere;
+}
+
+.paper-card h3 {
+    margin-bottom: 10px;
+}
+
+.paper-meta {
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.paper-card .score {
+    display: inline-block;
+    margin: 14px 0;
+    padding: 5px 10px;
+    background: #e5f7e9;
+    color: #176b32;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.paper-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.paper-actions form {
+    margin: 0;
+}
+
+.small-button {
+    border: none;
+    border-radius: 7px;
+    padding: 9px 13px;
+    background: #3659d9;
+    color: white;
+    cursor: pointer;
+}
+
+.paper-link {
+    font-weight: bold;
+}
+
+.empty-state {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+    background: white;
+    padding: 23px;
+    color: #68738a;
+    border-top: 1px solid #e8ecf4;
+}
+
+@media (max-width: 800px) {
+
+    .navbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .navbar nav {
+        gap: 14px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-grid,
+    .dashboard-grid,
+    .paper-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .main-container {
+        padding: 25px 5%;
+    }
+}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Saved Papers | AI Research{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+
+    <h1>⭐ My Saved Research Papers</h1>
+
+    <p>Your collection of saved research papers.</p>
+
+</section>
+
+{% if papers %}
+
+    {% for paper in papers %}
+
+        <div class="paper-card">
+
+            <h3>{{ paper.title }}</h3>
+
+            <p class="paper-meta">
+                {{ paper.authors }} | {{ paper.year }}
+            </p>
+
+            <p>{{ paper.abstract }}</p>
+
+            <div class="paper-actions">
+
+                <a href="{{ paper.url }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="paper-link">
+                    Visit Research Website
+                </a>
+
+                <form action="{{ url_for('remove_paper', paper_id=paper.id) }}"
+                      method="POST">
+
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token }}">
+
+                    <button type="submit" class="small-button">
+                        Remove Paper
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="empty-state">
+
+        <h3>No saved papers yet</h3>
+
+        <p>Search for interesting research papers and save them here.</p>
+
+        <br>
+
+        <a href="{{ url_for('search') }}" class="btn btn-primary">
+            Search Papers
+        </a>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}

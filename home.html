@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Home | AI Research{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="badge">AI POWERED RESEARCH</span>
+
+        <h1>
+            Discover Research Papers
+            <span>Smarter and Faster.</span>
+        </h1>
+
+        <p>
+            Find research papers related to your interests
+            using Artificial Intelligence and Machine Learning.
+            Explore research topics and discover useful academic work.
+        </p>
+
+        <div class="hero-buttons">
+
+            {% if session.get('user_id') %}
+
+                <a href="{{ url_for('dashboard') }}"
+                   class="btn btn-primary">
+                    Open Dashboard
+                </a>
+
+            {% else %}
+
+                <a href="{{ url_for('register') }}"
+                   class="btn btn-primary">
+                    Get Started
+                </a>
+
+                <a href="{{ url_for('login') }}"
+                   class="btn btn-secondary">
+                    Login
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="hero-card">
+
+        <div class="research-icon">📚</div>
+
+        <h2>AI Research Assistant</h2>
+
+        <p>Search. Discover. Learn.</p>
+
+        <div class="feature-item">
+            🤖 AI-powered recommendations
+        </div>
+
+        <div class="feature-item">
+            🔍 Research topic search
+        </div>
+
+        <div class="feature-item">
+            ⭐ Save your favourite papers
+        </div>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <h2>Explore Our Features</h2>
+
+    <div class="feature-grid">
+
+        <div class="feature-box">
+            <h3>🤖 Smart Recommendations</h3>
+            <p>Find relevant research papers based on your topic.</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>🔍 Easy Search</h3>
+            <p>Search research papers using keywords.</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>📌 Save Papers</h3>
+            <p>Save interesting papers and revisit them later.</p>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

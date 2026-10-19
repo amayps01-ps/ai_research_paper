@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}AI Research App{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="{{ url_for('home') }}">
+        AI Research
+    </a>
+
+    <nav>
+
+        <a href="{{ url_for('home') }}">Home</a>
+
+        {% if session.get('user_id') %}
+
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+            <a href="{{ url_for('search') }}">Search Papers</a>
+
+            <a href="{{ url_for('saved') }}">Saved Papers</a>
+
+            <form action="{{ url_for('logout') }}"
+                  method="POST"
+                  class="logout-form">
+
+                <input type="hidden"
+                       name="csrf_token"
+                       value="{{ csrf_token }}">
+
+                <button type="submit" class="logout-button">
+                    Logout
+                </button>
+
+            </form>
+
+        {% else %}
+
+            <a href="{{ url_for('login') }}">Login</a>
+
+            <a href="{{ url_for('register') }}"
+               class="nav-register">
+                Register
+            </a>
+
+        {% endif %}
+
+    </nav>
+
+</header>
+
+<main class="main-container">
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            <div class="messages">
+
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+</main>
+
+<footer class="footer">
+    <p>AI Research Paper Recommendation System</p>
+</footer>
+
+</body>
+
+</html>
